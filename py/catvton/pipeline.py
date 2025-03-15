@@ -60,7 +60,7 @@ class CatVTONPipeline:
             "vitonhd": "vitonhd-16k-512",
             "dresscode": "dresscode-16k-512",
         }[version]
-        repo_path = snapshot_download(repo_id="w3rc/CatVTON")
+        repo_path = snapshot_download(repo_id="w3rc/CatVTON", local_dir='/comfyui/models/CatVTON/mix-48k-1024/attention')
         print(f"Downloaded {attn_ckpt} to {repo_path}")
         load_checkpoint_in_model(self.attn_modules, os.path.join(repo_path, sub_folder, 'attention'))
             

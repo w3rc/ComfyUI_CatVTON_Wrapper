@@ -30,7 +30,7 @@ class CatVTONPipeline:
         self, 
         base_ckpt, 
         attn_ckpt, 
-        attn_ckpt_version="mix",
+        attn_ckpt_version="dresscode",
         weight_dtype=torch.float32,
         device='cuda',
         compile=False,
@@ -60,23 +60,12 @@ class CatVTONPipeline:
             "vitonhd": "vitonhd-16k-512",
             "dresscode": "dresscode-16k-512",
         }[version]
-        repo_path = snapshot_download(repo_id="w3rc/CatVTON", local_dir='/comfyui/models/CatVTON/mix-48k-1024/attention')
-        print(f"Downloaded {attn_ckpt} to {repo_path}")
-        checkpoint_path = os.path.join(repo_path, sub_folder, 'attention')
-
-        from safetensors.torch import load_file
-
-        safetensor_path = f"/comfyui/models/CatVTON/mix-48k-1024/attention/model.safetensors"
-        if not os.path.exists(safetensor_path):
-            print(f"File not found: {safetensor_path}")
-            return
-        if os.path.isfile(safetensor_path):
-            state_dict = load_file(safetensor_path)
-            self.attn_modules.load_state_dict(state_dict)
-            print(f"Loaded safetensor file: {safetensor_path}")
-            return
-
-        load_checkpoint_in_model(self.attn_modules, os.path.join(repo_path, sub_folder, 'attention'))
+        if os.path.exists(attn_ckpt):
+            load_checkpoint_in_model(self.attn_modules, os.path.join(attn_ckpt, sub_folder, 'attention'))
+        else:
+            repo_path = snapshot_download(repo_id=attn_ckpt)
+            print(f"Downloaded {attn_ckpt} to {repo_path}")
+            load_checkpoint_in_model(self.attn_modules, os.path.join(repo_path, sub_folder, 'attention'))
             
 
     def check_inputs(self, image, condition_image, mask, width, height):

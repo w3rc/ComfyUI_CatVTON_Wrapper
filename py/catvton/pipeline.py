@@ -62,6 +62,20 @@ class CatVTONPipeline:
         }[version]
         repo_path = snapshot_download(repo_id="w3rc/CatVTON", local_dir='/comfyui/models/CatVTON/mix-48k-1024/attention')
         print(f"Downloaded {attn_ckpt} to {repo_path}")
+        checkpoint_path = os.path.join(repo_path, sub_folder, 'attention')
+
+        from safetensors.torch import load_file
+
+        safetensor_path = f"/comfyui/models/CatVTON/mix-48k-1024/attention/model.safetensors"
+        if not os.path.exists(safetensor_path):
+            print(f"File not found: {safetensor_path}")
+            return
+        if os.path.isfile(safetensor_path):
+            state_dict = load_file(safetensor_path)
+            self.attn_modules.load_state_dict(state_dict)
+            print(f"Loaded safetensor file: {safetensor_path}")
+            return
+
         load_checkpoint_in_model(self.attn_modules, os.path.join(repo_path, sub_folder, 'attention'))
             
 

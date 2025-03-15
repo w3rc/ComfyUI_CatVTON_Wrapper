@@ -60,12 +60,9 @@ class CatVTONPipeline:
             "vitonhd": "vitonhd-16k-512",
             "dresscode": "dresscode-16k-512",
         }[version]
-        if os.path.exists(attn_ckpt):
-            load_checkpoint_in_model(self.attn_modules, os.path.join(attn_ckpt, sub_folder, 'attention'))
-        else:
-            repo_path = snapshot_download(repo_id=attn_ckpt)
-            print(f"Downloaded {attn_ckpt} to {repo_path}")
-            load_checkpoint_in_model(self.attn_modules, os.path.join(repo_path, sub_folder, 'attention'))
+        repo_path = snapshot_download(repo_id=attn_ckpt)
+        print(f"Downloaded {attn_ckpt} to {repo_path}")
+        load_checkpoint_in_model(self.attn_modules, os.path.join(repo_path, sub_folder, 'attention'))
             
 
     def check_inputs(self, image, condition_image, mask, width, height):

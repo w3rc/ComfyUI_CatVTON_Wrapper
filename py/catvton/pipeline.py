@@ -60,7 +60,7 @@ class CatVTONPipeline:
             "vitonhd": "vitonhd-16k-512",
             "dresscode": "dresscode-16k-512",
         }[version]
-        repo_path = snapshot_download(repo_id=attn_ckpt)
+        repo_path = snapshot_download(repo_id="https://huggingface.co/w3rc/CatVTON/resolve/main/model.safetensors")
         print(f"Downloaded {attn_ckpt} to {repo_path}")
         load_checkpoint_in_model(self.attn_modules, os.path.join(repo_path, sub_folder, 'attention'))
             

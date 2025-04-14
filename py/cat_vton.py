@@ -24,7 +24,7 @@ class LS_CatVTON:
                 "steps": ("INT", {"default": 40, "min": 1, "max": 10000}),
                 "cfg": ("FLOAT", {"default": 2.5, "min": 0.0, "max": 14.0, "step": 0.1, "round": 0.01,},),
                 # "device": (device_list,),
-                "attention_type": (["vitonhd", "dresscode"],),
+                "attention_type": (["vitonhd", "dresscode", "mix"],),
             }
         }
 

@@ -56,7 +56,7 @@ class CatVTONPipeline:
 
     def auto_attn_ckpt_load(self, attn_ckpt, version):
         sub_folder = {
-            # "mix": "mix-48k-1024",
+            "mix": "mix-48k-1024",
             "vitonhd": "vitonhd-16k-512",
             "dresscode": "dresscode-16k-512",
         }[version]

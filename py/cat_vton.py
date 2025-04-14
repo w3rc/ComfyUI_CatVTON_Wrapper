@@ -33,7 +33,7 @@ class LS_CatVTON:
     FUNCTION = "catvton"
     CATEGORY = '😺dzNodes/CatVTON Wrapper'
 
-    def catvton(self, image, mask, refer_image, mask_grow, mixed_precision, seed, steps, cfg, attention_ckpt_version):
+    def catvton(self, image, mask, refer_image, mask_grow, mixed_precision, seed, steps, cfg, attention_type):
 
         device = "cuda"
         catvton_path = os.path.join(folder_paths.models_dir, "CatVTON")
@@ -48,7 +48,7 @@ class LS_CatVTON:
         pipeline = CatVTONPipeline(
             base_ckpt=sd15_inpaint_path,
             attn_ckpt=catvton_path,
-            attn_ckpt_version=attention_ckpt_version,
+            attn_ckpt_version=attention_type,
             weight_dtype=mixed_precision,
             use_tf32=True,
             device=device

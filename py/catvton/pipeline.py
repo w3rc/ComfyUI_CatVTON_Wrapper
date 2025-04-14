@@ -56,10 +56,12 @@ class CatVTONPipeline:
 
     def auto_attn_ckpt_load(self, attn_ckpt, version):
         sub_folder = {
-            "mix": "mix-48k-1024",
+            # "mix": "mix-48k-1024",
             "vitonhd": "vitonhd-16k-512",
             "dresscode": "dresscode-16k-512",
         }[version]
+
+        print("Attention Ckpt Version: ", version)
         if os.path.exists(attn_ckpt):
             load_checkpoint_in_model(self.attn_modules, os.path.join(attn_ckpt, sub_folder, 'attention'))
         else:
